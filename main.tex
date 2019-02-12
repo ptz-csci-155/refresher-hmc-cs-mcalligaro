@@ -31,17 +31,60 @@ The refresher is not graded and does not have to be submitted. If there is somet
   \titledquestion{Matrix Arithmetic}
   \begin{parts}
     \part Write down the 3x3 {\it identity matrix}.
+
+	$$
+    \left(\begin{array}{ccc}
+  		1 & 0 & 0\\
+    	0 & 1 & 0\\
+   	 	0 & 0 & 1
+    \end{array}\right)
+	$$
+    
+    
     \part\label{transform} Given an $n\times n$ matrix, $A$, a vector, $x$, and the equation below
     \[ Ax = b, \]
-    what are the dimensions of $x$ and $b$?
+    what are the dimensions of $x$ and $b$?  
+      
+    $x$ and $b$ are both $n$ dimensional vectors, meaning they have dimensions $n \times 1$.
+    
+    
     \part Write down an expression for $x$ in (\ref{transform}).
+    
+    Assuming that $A$ is invertible, $x = A^{-1} b$
+    
+    
     \part\label{eq} Write the following system of equations in matrix form.
     \begin{align*}
       2x + y - 2z	& =  3\\
       x - y - z & =	0\\
       x + y + 3z & = 12
     \end{align*}
+    
+	$$
+     \left(\begin{array}{ccccc}
+          2 & 1 & -2 & | & 3\\
+          1 & -1 & -1 & | & 0\\
+          1 & 1 & 3 & | & 12
+    \end{array}\right)
+	$$
+    
+    
     \part Solve the system of equations from (\ref{eq}).
+    
+    First, we perform elementary row operations (EROs) to transform the matrix into reduced row echelon form (RREF).
+    
+    $$
+     \left(\begin{array}{ccccc}
+          1 & 0 & 0 & | & \frac{7}{2}\\
+          0 & 1 & 0 & | & 1\\
+          0 & 0 & 1 & | & \frac{5}{2}
+    \end{array}\right)
+	$$
+    
+    We interpret this as $x = \frac{7}{2}, y = 1, z = \frac{5}{2}$. 
+    
+    
+    
     \part Find the transpose and inverse of the matrix
     \[
       \left(
@@ -52,17 +95,71 @@ The refresher is not graded and does not have to be submitted. If there is somet
         \end{array}
       \right)
     \].
-  \end{parts}    
+    
+    We find the transpose by swaping the row and column coordinates for each entry.
+	$$
+     \left(\begin{array}{ccccc}
+          1 & 1 & 2\\
+          2 & 1 & 1\\
+          1 & 1 & 1
+    \end{array}\right)
+	$$
+	
+	To find the inverse, we create an augmented matrix with the identity matrix and perform EROs to transform the first matrix into the identity matrix.  
+	
+	$$
+     \left(\begin{array}{ccccccc}
+          1 & 2 & 1 & | & 1 & 0 & 0\\
+          1 & 1 & 1 & | & 0 & 1 & 0\\
+          2 & 1 & 1 & | & 0 & 0 & 1
+    \end{array}\right)
+    \to
+     \left(\begin{array}{ccccccc}
+          1 & 0 & 0 & | & 0 & -1 & 0\\
+          0 & 1 & 0 & | & 1 & -1 & 0\\
+          0 & 0 & 1 & | & -1 & 3 & -1
+    \end{array}\right)
+	$$
+	
+	The inverse is the resulting right hand side matrix, namely
+	$$
+     \left(\begin{array}{ccc}
+          0 & -1 & 0\\
+          1 & -1 & 0\\
+          -1 & 3 & -1
+    \end{array}\right)
+	$$
+	
+  \end{parts}
 
+  \newpage
   \titledquestion{Vectors}
   Given the points $P(1,-2,0)$, $Q(3,1,4)$, and $R(0,-1,2)$, determine
   \begin{parts}
     \part the vectors $\vv{PQ}$ and $\vv{PR}$.
+    $$\vv{PQ} = Q - P = (2,3,4)$$
+    $$\vv{PR} = R - P = (-1,1,2)$$
+    
     \part the angle between the vectors $\vv{PQ}$ and $\vv{PR}$.
+    
+    By the cosine formula, 
+  	$$\theta = \cos^{-1}\left({\frac{\vv{PQ} \cdot \vv{PR}}{||\vv{PQ}|| * ||\vv{PR}||}}\right) = \cos^{-1}\left(\frac{9}{\sqrt{29} * \sqrt{6}}\right) \approx 0.8199 \text{ radians}$$
+  	
+  	  	
     \part a vector perpendicular to both $\vv{PQ}$ and $\vv{PR}$.
+   	
+   	The cross product of two vectors is perpendicular to both vectors.  Therefore, $\vv{PQ} \times \vv{PR} = (2,8,5)$ is perpendicular to both $\vv{PQ}$ and $\vv{PR}$.
+    
+    
+    
     \part the length of the projection of $\vv{PR}$ on $\vv{PQ}$.
+    
+    We calculate the scalar projection of $\vv{PR}$ onto $\vv{PQ}$ as 
+    $$\frac{\vv{PR} \cdot \vv{PQ}}{||\vv{PQ}||} = \frac{9}{\sqrt{29}} \approx 1.6713$$
+    
   \end{parts}
 
+  \newpage
   \titledquestion{Geometry}
   Given the points $P(1,-2,0)$, $Q(3,1,4)$, and $R(0,-1,2)$, determine the {\it vector}, {\it scalar}, and {\it parametric} equations of the following.
   \begin{parts}
@@ -71,6 +168,7 @@ The refresher is not graded and does not have to be submitted. If there is somet
     \part the plane containing the points $P$, $Q$, and $R$.
   \end{parts}
 
+  \newpage
   \titledquestion{Vector Class}
   Implement a class, {\tt Vector}, in C++ to represent a 3D vector and define the following operations for it. Decide in each case whether the operation should be implemented as a method or an external function.
   \begin{parts}
@@ -84,7 +182,9 @@ The refresher is not graded and does not have to be submitted. If there is somet
     \part \underline{\tt operator*=}: takes a scalar as a parameter and scales this {\tt Vector}.
     \part \underline{\tt norm}: returns the norm or magnitude of this {\tt Vector}.
     \part \underline{\tt normalize}: normalizes this {\tt Vector}.
-    \part \underline{\tt operator-}: negates this {\tt Vector}.
+    \part \underline{\tt operator-}: negates this {\tt Vector}.\\
+    
+	The corresponding code can be found in the {\tt vector} directory of this repository. 
   \end{parts}
 
 \end{questions}
